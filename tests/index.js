@@ -1,10 +1,10 @@
 const app = require('../index');
+const axios = require('axios');
 
 const assert = require('assert').strict;
 
 let server;
 
-//TODO: ADD ARGS TO THE FUNCTIONS
 describe("Test Person CRUD API", function () {
     before(() => {
         server = app.listen(3000);
@@ -13,10 +13,79 @@ describe("Test Person CRUD API", function () {
     after(() => {
         server.close()
     })
-    it("Test", async function () {
-        let person = app.get('db')
-        console.log(person);
+    it("Test Get", async function () {
+        let persons = app.get('db')
+        let res = await axios.get('http://localhost:3000/person')
+        assert.equal(res.status, 200)
+        assert.deepEqual(persons, res.data)
     });
+
+    it("Test Get By ID", async function () {
+        let persons = app.get('db')
+        let res = await axios.get('http://localhost:3000/person/1')
+        assert.equal(res.status, 200)
+        assert.deepEqual(persons[0], res.data)
+    });
+
+    it("Test Post", async function () {
+        let newUser = {
+            name: 'keber',
+            age: 24,
+            hobbies: ['dubstep']
+        }
+
+        let res = await axios.post('http://localhost:3000/person', newUser)
+        assert.equal(res.status, 200)
+        let persons = app.get('db')
+        let insertedUser = Object.assign({}, persons[1])
+        delete insertedUser.id
+        assert.deepEqual(insertedUser, newUser)
+    });
+
+    it("Test Put", async function () {
+        let newUser = {
+            name: 'Sam',
+            age: 26,
+            hobbies: ['dubstep', 'jazz']
+        }
+        let res = await axios.put('http://localhost:3000/person/1', newUser)
+
+        let persons = app.get('db')
+        newUser.id = "1"
+        assert.deepEqual(persons[0], newUser)
+    });
+
+    it("Test delete", async function () {
+
+        let res = await axios.delete('http://localhost:3000/person/1')
+
+        let persons = app.get('db')
+
+        assert.deepEqual(persons.filter(p => p.id == '1'), [])
+    });
+
+    it("Test non existing user", async function () {
+        let err;
+        try {
+            let res = await axios.get('http://localhost:3000/person/1')
+        } catch (e) {
+            err = e;
+        }
+        assert.equal(err.response.status, 404)
+
+    });
+
+    it("Test non existing endpoint", async function () {
+        let err;
+        try {
+            let res = await axios.get('http://localhost:3000/test/non-exiting/endpoint')
+        } catch (e) {
+            err = e;
+        }
+        assert.equal(err.response.status, 404)
+
+    });
+
 
 
 });
