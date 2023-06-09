@@ -6,7 +6,7 @@ Your task is to implement simple CRUD API using in-memory database underneath.
 
 ## Details:
 
-1. The task must be solved using only **express**. Any libraries and packages **are prohibited**.
+1. The task must be solved using only **express** and proveded packages in **package.json**. Any libraries and packages **are prohibited**.
 2. API path `/person`:
     * **GET** `/person` or `/person/${personId}` should return all persons or person with corresponding `personId`
     * **POST** `/person` is used to create record about new person and store it in database
