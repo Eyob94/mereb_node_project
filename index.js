@@ -1,24 +1,8 @@
-import express from "express";
-import bodyParser from "body-parser";
-import { loggerMiddleware } from "./middleware";
-const app = express();
+import App from "./app";
+import { validateEnv } from "./utils";
 
-let persons = [
-	{
-		id: "1",
-		name: "Sam",
-		age: "26",
-		hobbies: [],
-	},
-]; //This is your in memory database
+validateEnv();
 
-app.set("db", persons);
-//TODO: Implement crud of person
+const app = new App();
 
-app.use(bodyParser.json());
-app.use(loggerMiddleware);
-
-if (require.main === module) {
-	app.listen(3000);
-}
-module.exports = app;
+app.listen();

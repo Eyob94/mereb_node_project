@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import { errorMiddleware } from "./middleware";
+import { PORT } from "./constants";
 
 class App {
 	constructor(controllers) {
@@ -11,8 +12,8 @@ class App {
 	}
 
 	listen() {
-		this.app.listen(process.env.PORT, () => {
-			console.log(`Server running on port ${process.env.PORT}`);
+		this.app.listen(PORT, () => {
+			console.log(`Server running on port ${PORT}`);
 		});
 	}
 
