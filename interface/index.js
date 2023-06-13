@@ -1,1 +1,1 @@
-export * from "./schema.interface";
+export * from "./envSchema.interface.js";

@@ -1,8 +1,9 @@
-import dotenv from "dotenv";
-import { envSchema } from "../interface";
-
-dotenv.config();
+import environment from "../constants/index.js";
+import { envSchema } from "../interface/index.js";
 
 export const validateEnv = () => {
-	envSchema.validate(process.env);
+	const { error } = envSchema.validate(environment);
+	if (error) {
+		throw new Error(error.details?.[0]?.message);
+	}
 };

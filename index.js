@@ -1,5 +1,5 @@
-import App from "./app";
-import { validateEnv } from "./utils";
+import App from "./app.js";
+import { validateEnv } from "./utils/validateEnv.js";
 
 validateEnv();
 
