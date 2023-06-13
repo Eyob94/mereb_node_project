@@ -1,1 +1,1 @@
-export * from "./person.dto";
+export * from "./person.dto.js";

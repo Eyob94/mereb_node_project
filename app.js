@@ -1,7 +1,8 @@
 import bodyParser from "body-parser";
 import express from "express";
-import { errorMiddleware } from "./middleware";
-import { PORT } from "./constants";
+import { errorMiddleware } from "./middleware/index.js";
+import environment from "./constants/index.js";
+import cors from "cors";
 
 class App {
 	constructor(controllers) {
@@ -12,17 +13,18 @@ class App {
 	}
 
 	listen() {
-		this.app.listen(PORT, () => {
-			console.log(`Server running on port ${PORT}`);
+		this.app.listen(environment.PORT, () => {
+			console.log(`Server running on port ${environment.PORT}`);
 		});
 	}
 
 	initializeMiddlewares() {
+		this.app.use(cors());
 		this.app.use(bodyParser.json());
 	}
 
 	initializeControllers(controllers) {
-		controllers.forEach((controller) => {
+		controllers?.forEach((controller) => {
 			this.app.use("/", controller.router);
 		});
 	}

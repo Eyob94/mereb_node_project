@@ -1,1 +1,7 @@
-export const PORT = process.env.PORT;
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const environment = { PORT: process.env.PORT };
+
+export default environment;
