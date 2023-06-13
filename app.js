@@ -7,9 +7,9 @@ import cors from "cors";
 class App {
 	constructor(controllers) {
 		this.app = express();
-		this.initializeMiddlewares();
-		this.initializeControllers(controllers);
-		this.initializeErrorHandling();
+		this.#initializeMiddlewares();
+		this.#initializeControllers(controllers);
+		this.#initializeErrorHandling();
 	}
 
 	listen() {
@@ -18,18 +18,18 @@ class App {
 		});
 	}
 
-	initializeMiddlewares() {
+	#initializeMiddlewares() {
 		this.app.use(cors());
 		this.app.use(bodyParser.json());
 	}
 
-	initializeControllers(controllers) {
+	#initializeControllers(controllers) {
 		controllers?.forEach((controller) => {
 			this.app.use("/", controller.router);
 		});
 	}
 
-	initializeErrorHandling() {
+	#initializeErrorHandling() {
 		this.app.use(errorMiddleware);
 	}
 
