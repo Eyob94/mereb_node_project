@@ -1,22 +1,53 @@
-# node-crud-challenge
+# Mereb_Node_Project
 
-## Implement Simple CRUD API
+This project is a simple CRUD API built with Node.js and Express, and it can be easily set up using Docker Compose for containerization. It follows the MVC (Model-View-Controller) architecture and utilizes the singleton pattern for the database.
 
-Your task is to implement simple CRUD API using in-memory database underneath.  
+## Prerequisites
 
-## Details:
+- Docker (latest version)
+- Docker Compose (latest version)
+- Node (v14) (not required if docker is used)
 
-1. The task must be solved using only **express** and proveded packages in **package.json**. Any libraries and packages **are prohibited**.
-2. API path `/person`:
-    * **GET** `/person` or `/person/${personId}` should return all persons or person with corresponding `personId`
-    * **POST** `/person` is used to create record about new person and store it in database
-    * **PUT** `/person/${personId}` is used to update record about existing person
-    * **DELETE** `/person/${personId}` is used to delete record about existing person from database
-3. Persons are stored as `objects` that have following properties:
-    * `id` — unique identifier (`string`, `uuid`) generated on server side
-    * `name` — person's name (`string`, **required**)
-    * `age` — person's age (`number`, **required**)
-    * `hobbies` — person's hobbies (`array` of `strings` or empty `array`, **required**)
-4. Requests to non-existing endpoints (e.g. `/some-non/existing/resource`) should be handled.
-5. Internal server errors should be handled and processed correctly.
-6. Make sure the api is accesible by frontend apps hosted on a different domain (cross-site resource sharing)
+## Working Example
+
+A working example of the project can be found at `https://52.91.186.141/person`
+
+## Getting Started
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Eyob94/mereb_node_project.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd mereb_node_project
+```
+
+3. Start the application using Docker Compose:
+
+```bash
+docker-compose up --build -d
+```
+
+OR
+
+```bash
+node index.js
+```
+
+The API will be accessible at `http://localhost` or `https://localhost`(if you create an SSL certificate) if docker is used or at port 3000 if it isn't.
+
+## API Endpoints
+
+- GET `/person` - Retrieve all persons
+- GET `/person/:personId` - Retrieve a specific person by ID
+- POST `/person` - Create a new person
+- PUT `/person/:personId` - Update a specific person by ID
+- DELETE `/person/:personId` - Delete a specific person by ID
+
+## Docker Compose Configuration
+
+The `docker-compose.yml` file defines the services and dependencies for Docker Compose.
