@@ -1,0 +1,27 @@
+name: Setup AWS_EC2 deployment
+
+on:
+  push:
+    branches:
+      - "staging"
+
+jobs:
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Setup the VPS
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          command_timeout: 30m
+          script: |
+            cd /home/mereb_node_project
+            git pull origin staging
+            docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
+            docker compose up --build -d
