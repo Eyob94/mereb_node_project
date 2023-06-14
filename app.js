@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
-import { errorMiddleware } from "./middleware/index.js";
+import { errorMiddleware, notFoundMiddleware } from "./middleware/index.js";
 import environment from "./constants/index.js";
 import cors from "cors";
 
@@ -36,9 +36,8 @@ class App {
 
 	#initializeErrorHandling() {
 		this.app.use(errorMiddleware);
+		this.app.use(notFoundMiddleware);
 	}
-
-	// connectToDatabase() {}
 }
 
 export default App;
