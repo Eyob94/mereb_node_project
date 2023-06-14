@@ -29,11 +29,30 @@ class DatabaseService {
 	add(entity = this.#entity, record) {
 		this.#checkEntity(entity);
 
-		this.#db[entity].push(record);
-
-		console.log("Record Added \n", record);
+		const index = this.#db[entity].findIndex((rec) => rec?.id === record.id);
+		if (index === -1) {
+			this.#db[entity].push(record);
+			console.log("Record Added \n", record);
+		} else {
+			console.error("Record already Exists!!!\n");
+			return;
+		}
 
 		return record;
+	}
+
+	init() {
+		try {
+			this.createEntity("person");
+		} catch (e) {
+		} finally {
+			this.add("person", {
+				id: "1",
+				name: "Sam",
+				age: "26",
+				hobbies: [],
+			});
+		}
 	}
 
 	getAll(entity = this.#entity) {
@@ -82,4 +101,6 @@ class DatabaseService {
 	}
 }
 
-export default DatabaseService;
+const database = new DatabaseService();
+
+export default database;

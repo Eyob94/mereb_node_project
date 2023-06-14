@@ -13,9 +13,14 @@ class App {
 	}
 
 	listen() {
-		this.app.listen(environment.PORT, () => {
+		this.server = this.app.listen(environment.PORT, () => {
 			console.log(`Server running on port ${environment.PORT}`);
 		});
+		return this.server;
+	}
+
+	close() {
+		this.server.close();
 	}
 
 	#initializeMiddlewares() {

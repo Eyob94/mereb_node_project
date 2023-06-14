@@ -1,12 +1,12 @@
-import DatabaseService from "../database/database.service.js";
+import database from "../database/database.service.js";
 import { personSchema } from "./person.schema.js";
 import { v4 as uuidv4 } from "uuid";
 
 export class PersonService {
-	#databaseService = new DatabaseService();
+	#database = database;
 
 	constructor() {
-		this.#databaseService.createEntity("person");
+		this.#database.init();
 	}
 
 	#validate(record) {
@@ -19,23 +19,23 @@ export class PersonService {
 
 	createPerson(person) {
 		this.#validate(person);
-		person.id = uuidv4();
-		return this.#databaseService.add("person", person);
+		if (!person.id) person.id = uuidv4();
+		return this.#database.add("person", person);
 	}
 	getPersons() {
-		return this.#databaseService.getAll("person");
+		return this.#database.getAll("person");
 	}
 
 	getPerson(id) {
-		return this.#databaseService.get("person", id);
+		return this.#database.get("person", id);
 	}
 
 	updatePerson(id, person) {
 		this.#validate(person);
-		return this.#databaseService.update("person", id, person);
+		return this.#database.update("person", id, person);
 	}
 
 	deletePerson(id) {
-		return this.#databaseService.delete("person", id);
+		return this.#database.delete("person", id);
 	}
 }
