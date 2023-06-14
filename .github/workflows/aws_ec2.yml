@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           command_timeout: 30m
           script: |
-            cd /home/mereb_node_project
+            cd app/mereb_node_project
             git pull origin staging
-            docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
-            docker compose up --build -d
+            sudo docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
+            sudo docker compose up --build -d
