@@ -40,6 +40,14 @@ node index.js
 
 The API will be accessible at `http://localhost` or `https://localhost`(if you create an SSL certificate) if docker is used or at port 3000 if it isn't.
 
+## Testing
+
+In order to run the unit tests created for this app, you can run
+
+```bash
+npm test
+```
+
 ## API Endpoints
 
 - GET `/person` - Retrieve all persons
@@ -47,6 +55,47 @@ The API will be accessible at `http://localhost` or `https://localhost`(if you c
 - POST `/person` - Create a new person
 - PUT `/person/:personId` - Update a specific person by ID
 - DELETE `/person/:personId` - Delete a specific person by ID
+
+## Project Structure
+
+The project follows a structured directory layout:
+
+```
+├── person
+│   └── middleware
+│       └── ...
+│   └── person.controller.js
+│   └── person.service.js
+│   └── person.schema.js
+├── middleware
+│   └── ...
+├── constants
+│   └── ...
+├── database
+│   └── ...
+├── interface
+│   └── ...
+├── utils
+│   └── ...
+├── .github
+│   └── ...
+├── app.js
+├── index.js
+├── Dockerfile
+└── docker-compose.yml
+└── ...
+```
+
+- `person`: Contains the logic for handling API requests and responses for the `/person` endpoint.
+- `middleware`: Defines the global middlewares.
+- `database`: Defines the singleton database connection.
+- `interface`: Provides the global schemas.
+- `utils`: Provides utility functions for the app.
+- `constants`: Parses and validates global constants like env variables.
+- `app.js`: Sets up the Express App class that will be used to setup the controllers and create the server.
+- `index.js`: Entry point to start the server.
+- `Dockerfile`: Specifies the instructions to build the Docker image.
+- `docker-compose.yml`: Defines the services and dependencies for Docker Compose.
 
 ## Docker Compose Configuration
 
